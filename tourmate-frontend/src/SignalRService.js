@@ -25,7 +25,7 @@ export const startConnection = async (onMessageReceived) => {
             });
 
         } catch (err) {
-            console.error("❌ SignalR Connection Error: ", err);
+            console.error("❌ SignalR Connection Error : ", err);
         }
     } else {
         console.log("ℹ️ SignalR: Connection state is currently:", connection.state);
