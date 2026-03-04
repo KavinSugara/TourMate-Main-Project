@@ -9,6 +9,7 @@ namespace TourMate.Backend.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Guide> Guides { get; set; }
     }
 }

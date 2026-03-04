@@ -19,7 +19,7 @@ export const startConnection = async (onMessageReceived) => {
 
             connection.off("ReceiveBookingRequest");
 
-            connection.on("ReceiveBookingRequest", (data) => {
+            connection.on("ReceiveBookingRequests", (data) => {
                 console.log("🔔 SignalR Service: Raw data received", data);
                 onMessageReceived(data); 
             });
