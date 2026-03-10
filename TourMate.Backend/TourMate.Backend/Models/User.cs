@@ -17,6 +17,6 @@ namespace TourMate.Backend.Models
 
         [Required]
         [StringLength(20)]
-        public string UserRole { get; set; } = "Tourist"; // 'Tourist' or 'Guide'
+        public string UserRole { get; set; } = "Tourist"; 
     }
 }

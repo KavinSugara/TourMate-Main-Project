@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-// Added 'Circle' to the imports
 import { MapContainer, TileLayer, Marker, Popup, useMap, Circle } from 'react-leaflet';
 import L from 'leaflet';
-
+import axios from 'axios'; 
 const guideIcon = new L.Icon({
   iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
   iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
@@ -27,15 +26,33 @@ function RecenterMap({ center }) {
 }
 
 const TourMap = ({ guides, center, radius }) => {
+
+  const handleBooking = async (guide) => {
+    const touristName = localStorage.getItem('userEmail') || "A Tourist";
+    
+    try {
+      await axios.post(
+        `http://localhost:5211/api/Matching/request/${guide.id}`, 
+        JSON.stringify(touristName),
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+
+      alert(`Booking request sent to ${guide.fullName}! They will be notified instantly.`);
+    } catch (err) {
+      console.error("Booking error:", err);
+      alert("Failed to send booking request. Ensure the backend server is running.");
+    }
+  };
+
   return (
     <MapContainer 
       center={center} 
       zoom={11} 
-      style={{ height: "500px", width: "100%", borderRadius: "10px" }}
+      style={{ height: "500px", width: "100%", borderRadius: "10px", border: "2px solid #ddd" }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution='&copy; OpenStreetMap contributors'
       />
       
       <RecenterMap center={center} />
@@ -57,9 +74,46 @@ const TourMap = ({ guides, center, radius }) => {
           icon={guideIcon}
         >
           <Popup>
-            <strong>{guide.fullName}</strong> <br />
-            {guide.category} - {guide.specialization} <br />
-            {guide.isVerified ? "✅ Verified SLTDA Guide" : "❌ Unverified"}
+            <div style={{ textAlign: 'center', minWidth: '150px' }}>
+              <strong style={{ fontSize: '1.1rem' }}>{guide.fullName}</strong> <br />
+              
+              <div style={{ 
+                margin: '8px 0', 
+                color: '#2e7d32', 
+                fontWeight: 'bold', 
+                fontSize: '1rem',
+                backgroundColor: '#e8f5e9',
+                padding: '4px',
+                borderRadius: '4px'
+              }}>
+                LKR {guide.baseRate?.toLocaleString() || "Price on Request"}
+              </div>
+
+              <span style={{ fontSize: '0.9rem', color: '#555' }}>
+                {guide.category} - {guide.specialization}
+              </span> <br />
+              
+              <span style={{ fontSize: '0.85rem' }}>
+                {guide.isVerified ? "✅ Verified SLTDA Guide" : "❌ Unverified"}
+              </span>
+              
+              <hr style={{ margin: '10px 0' }} />
+              <button 
+                onClick={() => handleBooking(guide)}
+                style={{
+                  width: '100%',
+                  padding: '8px',
+                  backgroundColor: '#007bff',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontWeight: 'bold'
+                }}
+              >
+                Book This Guide
+              </button>
+            </div>
           </Popup>
         </Marker>
       ))}

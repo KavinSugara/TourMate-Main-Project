@@ -138,7 +138,6 @@ D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\staticweb
 D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\staticwebassets.development.json
 D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\swae.build.ex.cache
-D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\TourMate.5BFB7670.Up2Date
 D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\TourMate.Backend.dll
 D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\refint\TourMate.Backend.dll
@@ -146,3 +145,4 @@ D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\TourMate.
 D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\TourMate.Backend.genruntimeconfig.cache
 D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\ref\TourMate.Backend.dll
 D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\TourMate.Backend.sourcelink.json
+D:\TourMate-Project\TourMate.Backend\TourMate.Backend\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using TourMate.Backend.Hubs;
 using TourMate.Backend.Models;
 using TourMate.Backend.Services;
-using TourMate.Backend.Data; 
+using TourMate.Backend.Data;
 
 namespace TourMate.Backend.Controllers
 {
@@ -58,10 +58,9 @@ namespace TourMate.Backend.Controllers
                 return NotFound("Guide not found in database.");
             }
 
-       
             var notification = new
             {
-                guideId = guide.Id,
+                guideId = guide.UserId,
                 fullName = guide.FullName,
                 touristName = touristName,
                 message = $"New booking request for {guide.FullName}!"

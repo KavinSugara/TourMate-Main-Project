@@ -32,7 +32,12 @@ namespace TourMate.Backend.Services
 
         public async Task<List<Guide>> GetNearbyGuidesAsync(double touristLat, double touristLon, double radiusKm, string? category = null)
         {
-            var query = _context.Guides.Where(g => g.IsActive && g.IsVerified);
+            var query = _context.Guides.Where(g =>
+                g.IsActive &&
+                g.IsAvailable &&
+                g.IsVerified &&
+                g.Latitude != null &&
+                g.Longitude != null);
 
             if (!string.IsNullOrEmpty(category))
             {
@@ -44,7 +49,7 @@ namespace TourMate.Backend.Services
             return candidates
                 .Select(g => new {
                     Guide = g,
-                    Distance = CalculateDistance(touristLat, touristLon, (double)g.Latitude, (double)g.Longitude)
+                    Distance = CalculateDistance(touristLat, touristLon, (double)g.Latitude!, (double)g.Longitude!)
                 })
                 .Where(x => x.Distance <= radiusKm)
                 .OrderBy(x => x.Distance)

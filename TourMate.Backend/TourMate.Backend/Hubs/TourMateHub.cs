@@ -1,7 +1,7 @@
-﻿namespace TourMate.Backend.Hubs
-{
-    using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 
+namespace TourMate.Backend.Hubs
+{
     public class TourMateHub : Hub
     {
         public async Task RequestGuide(string guideId, string touristName)
@@ -12,6 +12,13 @@
         public async Task SendMessage(string user, string message)
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
+        }
+
+        public async Task RespondToBooking(string touristEmail, string guideName, bool accepted)
+        {
+            string status = accepted ? "Accepted" : "Declined";
+
+            await Clients.All.SendAsync("ReceiveBookingResponse", guideName, status);
         }
     }
 }

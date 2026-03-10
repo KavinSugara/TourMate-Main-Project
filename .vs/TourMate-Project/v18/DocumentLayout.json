@@ -3,28 +3,20 @@
   "WorkspaceRootPath": "D:\\TourMate-Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\models\\guide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\models\\guide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\hubs\\tourmatehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\hubs\\tourmatehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\data\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\data\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\controllers\\matchingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\controllers\\matchingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\controllers\\guidescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\controllers\\guidescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\20260308130627_AddLicenseStatusField.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TourMate.Backend\\TourMate.Backend\\Migrations\\20260308130627_AddLicenseStatusField.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\tourmate.backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\tourmate.backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\services\\verificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,8 +31,12 @@
       "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\hubs\\tourmatehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\hubs\\tourmatehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\models\\guide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\models\\guide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\data\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\data\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -55,8 +51,40 @@
       "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\controllers\\verificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\controllers\\matchingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\controllers\\matchingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\migrations\\20260309075651_addbaseratetoguide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\migrations\\20260309075651_addbaseratetoguide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\migrations\\20260309042911_addlicensestatustomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\migrations\\20260309042911_addlicensestatustomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\migrations\\20260129063725_addcategoryandverificationtoguide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\migrations\\20260129063725_addcategoryandverificationtoguide.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\tourmate.backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\tourmate.backend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\20260308130627_AddLicenseStatusField.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TourMate.Backend\\TourMate.Backend\\Migrations\\20260308130627_AddLicenseStatusField.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|d:\\tourmate-project\\tourmate.backend\\tourmate.backend\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{02F0CAAD-EFD2-63D2-FAB3-EAFAD518D711}|TourMate.Backend\\TourMate.Backend\\TourMate.Backend.csproj|solutionrelative:tourmate.backend\\tourmate.backend\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,50 +94,102 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Guide.cs",
-              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Models\\Guide.cs",
-              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Models\\Guide.cs",
-              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Models\\Guide.cs",
-              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Models\\Guide.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T13:23:30.843Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "20260308130627_AddLicenseStatusField.cs",
-              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\20260308130627_AddLicenseStatusField.cs",
-              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Migrations\\20260308130627_AddLicenseStatusField.cs",
-              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\20260308130627_AddLicenseStatusField.cs",
-              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Migrations\\20260308130627_AddLicenseStatusField.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T13:06:27.667Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Program.cs",
               "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Program.cs",
               "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Program.cs",
               "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Program.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAIwDUAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAACsAAAAAAAAAAADwv0UAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-08T11:41:10.718Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MatchingService.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Services\\MatchingService.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Services\\MatchingService.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Services\\MatchingService.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Services\\MatchingService.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAADwvz8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-08T11:41:01.036Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Models\\User.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Models\\User.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Models\\User.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-08T11:40:54.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Guide.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Models\\Guide.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Models\\Guide.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Models\\Guide.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Models\\Guide.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAwCkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-08T13:23:30.843Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GuidesController.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\GuidesController.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Controllers\\GuidesController.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\GuidesController.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Controllers\\GuidesController.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAADwv30AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T07:03:16.332Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MatchingController.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\MatchingController.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Controllers\\MatchingController.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\MatchingController.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Controllers\\MatchingController.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAmwE4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-08T11:40:19.925Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TourMateHub.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Hubs\\TourMateHub.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Hubs\\TourMateHub.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Hubs\\TourMateHub.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Hubs\\TourMateHub.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-08T11:59:51.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "VerificationService.cs",
               "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Services\\VerificationService.cs",
               "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Services\\VerificationService.cs",
@@ -117,36 +197,101 @@
               "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Services\\VerificationService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T11:41:05.836Z"
+              "WhenOpened": "2026-03-08T11:41:05.836Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "DataSeeder.cs",
               "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Data\\DataSeeder.cs",
               "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Data\\DataSeeder.cs",
               "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Data\\DataSeeder.cs",
               "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Data\\DataSeeder.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAgwBUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAADwvyUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-08T11:40:41.088Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "WeatherForecast.cs",
-              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\WeatherForecast.cs",
-              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\WeatherForecast.cs",
-              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\WeatherForecast.cs",
-              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\WeatherForecast.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 9,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T12:00:20.493Z"
+              "WhenOpened": "2026-03-08T11:40:33.913Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAswCEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-08T11:59:40.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "VerificationController.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\VerificationController.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Controllers\\VerificationController.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\VerificationController.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Controllers\\VerificationController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAowBsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-08T11:40:25.979Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAwwEEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T04:48:50.42Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "20260309075651_AddBaseRateToGuide.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\20260309075651_AddBaseRateToGuide.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Migrations\\20260309075651_AddBaseRateToGuide.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\20260309075651_AddBaseRateToGuide.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Migrations\\20260309075651_AddBaseRateToGuide.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T07:56:51.319Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "20260309042911_AddLicenseStatusToModel.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\20260309042911_AddLicenseStatusToModel.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Migrations\\20260309042911_AddLicenseStatusToModel.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\20260309042911_AddLicenseStatusToModel.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Migrations\\20260309042911_AddLicenseStatusToModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T04:29:11.956Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "TourMate.Backend.http",
               "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\TourMate.Backend.http",
               "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\TourMate.Backend.http",
@@ -158,87 +303,63 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MatchingService.cs",
-              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Services\\MatchingService.cs",
-              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Services\\MatchingService.cs",
-              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Services\\MatchingService.cs",
-              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Services\\MatchingService.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAcwDYAAAABAAAAAAAAAA==",
+              "DocumentIndex": 15,
+              "Title": "20260129063725_AddCategoryAndVerificationToGuide.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\20260129063725_AddCategoryAndVerificationToGuide.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Migrations\\20260129063725_AddCategoryAndVerificationToGuide.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\20260129063725_AddCategoryAndVerificationToGuide.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Migrations\\20260129063725_AddCategoryAndVerificationToGuide.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T11:41:01.036Z"
+              "WhenOpened": "2026-03-08T19:28:13.987Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "User.cs",
-              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Models\\User.cs",
-              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Models\\User.cs",
-              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Models\\User.cs",
-              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T11:40:54.981Z"
+              "DocumentIndex": 17,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\appsettings.json",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\appsettings.json",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\appsettings.json",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-08T19:28:52.949Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "TourMateHub.cs",
-              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Hubs\\TourMateHub.cs",
-              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Hubs\\TourMateHub.cs",
-              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Hubs\\TourMateHub.cs",
-              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Hubs\\TourMateHub.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 18,
+              "Title": "ApplicationDbContextModelSnapshot.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAUwEYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T11:59:51.588Z"
+              "WhenOpened": "2026-03-08T19:28:19.851Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T11:40:33.913Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "WeatherForecastController.cs",
-              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\WeatherForecastController.cs",
-              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Controllers\\WeatherForecastController.cs",
-              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\WeatherForecastController.cs",
-              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Controllers\\WeatherForecastController.cs",
+              "DocumentIndex": 19,
+              "Title": "20260308130627_AddLicenseStatusField.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\20260308130627_AddLicenseStatusField.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Migrations\\20260308130627_AddLicenseStatusField.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Migrations\\20260308130627_AddLicenseStatusField.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Migrations\\20260308130627_AddLicenseStatusField.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T11:59:40.25Z"
+              "WhenOpened": "2026-03-08T13:06:27.667Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "MatchingController.cs",
-              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\MatchingController.cs",
-              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Controllers\\MatchingController.cs",
-              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\MatchingController.cs",
-              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Controllers\\MatchingController.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAqwEoAAAABAAAAAAAAAA==",
+              "DocumentIndex": 20,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\WeatherForecast.cs",
+              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\WeatherForecast.cs",
+              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T11:40:19.925Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "VerificationController.cs",
-              "DocumentMoniker": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\VerificationController.cs",
-              "RelativeDocumentMoniker": "TourMate.Backend\\TourMate.Backend\\Controllers\\VerificationController.cs",
-              "ToolTip": "D:\\TourMate-Project\\TourMate.Backend\\TourMate.Backend\\Controllers\\VerificationController.cs",
-              "RelativeToolTip": "TourMate.Backend\\TourMate.Backend\\Controllers\\VerificationController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-08T11:40:25.979Z"
+              "WhenOpened": "2026-03-08T12:00:20.493Z"
             }
           ]
         }
