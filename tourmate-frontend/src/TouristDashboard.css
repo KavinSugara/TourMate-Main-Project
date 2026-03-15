@@ -1,0 +1,131 @@
+/* TouristDashboard.css */
+.tourist-dashboard-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+}
+
+.dashboard-header {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.dashboard-main {
+  display: flex;
+  height: calc(100vh - 70px); /* Adjust 70px to match your header height */
+  overflow: hidden; 
+  padding: 15px;
+  gap: 15px;
+  box-sizing: border-box; /* Ensures padding doesn't add to height */
+}
+
+/* Sidebar Styling */
+.guide-sidebar {
+  flex: 0 0 350px;
+  height: 100%; /* Take full height of dashboard-main */
+  background: white;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 1px solid #e0e0e0;
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.radius-control {
+  margin-top: 10px;
+}
+
+.radius-control input {
+  width: 100%;
+  cursor: pointer;
+}
+
+.guide-list-container {
+  flex: 1;
+  overflow-y: auto; /* Scrollable list */
+  padding: 15px;
+}
+
+/* Guide Card Styling */
+.guide-item-card {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.guide-item-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 4px 12px rgba(0,123,255,0.1);
+  transform: translateY(-2px);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.guide-name {
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.guide-price {
+  color: #28a745;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.guide-meta {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 8px 0;
+}
+
+.badge-verified {
+  background: #e6f7ff;
+  color: #1890ff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  display: inline-block;
+}
+
+.book-btn-sidebar {
+  width: 100%;
+  margin-top: 12px;
+  padding: 8px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.book-btn-sidebar:hover {
+  background-color: #0056b3;
+}
+
+/* Map Section */
+.map-view-section {
+  flex: 1; /* Take all remaining width */
+  height: 100%; /* Take full height of dashboard-main */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 1px solid #e0e0e0;
+}

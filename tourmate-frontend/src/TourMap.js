@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Circle } from 'react-leaflet';
 import L from 'leaflet';
-import axios from 'axios'; 
+
+// Icons remain the same
 const guideIcon = new L.Icon({
   iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
   iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
@@ -25,30 +26,13 @@ function RecenterMap({ center }) {
   return null;
 }
 
-const TourMap = ({ guides, center, radius }) => {
-
-  const handleBooking = async (guide) => {
-    const touristName = localStorage.getItem('userEmail') || "A Tourist";
-    
-    try {
-      await axios.post(
-        `http://localhost:5211/api/Matching/request/${guide.id}`, 
-        JSON.stringify(touristName),
-        { headers: { 'Content-Type': 'application/json' } }
-      );
-
-      alert(`Booking request sent to ${guide.fullName}! They will be notified instantly.`);
-    } catch (err) {
-      console.error("Booking error:", err);
-      alert("Failed to send booking request. Ensure the backend server is running.");
-    }
-  };
-
+// UPDATED: Destructuring 'onBook' from props
+const TourMap = ({ guides, center, radius, onBook }) => {
   return (
     <MapContainer 
       center={center} 
       zoom={11} 
-      style={{ height: "500px", width: "100%", borderRadius: "10px", border: "2px solid #ddd" }}
+      style={{ height: "100%", width: "100%" }} 
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -98,8 +82,10 @@ const TourMap = ({ guides, center, radius }) => {
               </span>
               
               <hr style={{ margin: '10px 0' }} />
+              
+              {/* UPDATED: Calling onBook(guide) passed from Parent */}
               <button 
-                onClick={() => handleBooking(guide)}
+                onClick={() => onBook(guide)}
                 style={{
                   width: '100%',
                   padding: '8px',

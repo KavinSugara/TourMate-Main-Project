@@ -11,5 +11,6 @@ namespace TourMate.Backend.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Guide> Guides { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
     }
 }

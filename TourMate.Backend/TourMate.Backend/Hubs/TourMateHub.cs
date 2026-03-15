@@ -17,8 +17,18 @@ namespace TourMate.Backend.Hubs
         public async Task RespondToBooking(string touristEmail, string guideName, bool accepted)
         {
             string status = accepted ? "Accepted" : "Declined";
-
             await Clients.All.SendAsync("ReceiveBookingResponse", guideName, status);
+        }
+
+        public async Task NotifyStatusChange(int guideUserId, bool isOnline, double? lat, double? lon)
+        {
+            await Clients.All.SendAsync("ReceiveStatusUpdate", new
+            {
+                guideUserId,
+                isOnline,
+                latitude = lat,
+                longitude = lon
+            });
         }
     }
 }

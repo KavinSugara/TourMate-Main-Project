@@ -22,18 +22,16 @@ namespace TourMate.Backend.Controllers
             if (await _context.Users.AnyAsync(u => u.Email == user.Email))
                 return BadRequest(new { message = "User already exists." });
 
-            // 1. Save the User account
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            // 2. If they are a Guide, create their empty professional profile
             if (user.UserRole == "Guide")
             {
                 var newGuide = new Guide
                 {
                     UserId = user.Id,
-                    FullName = "New Guide", // To be updated by the guide later
-                    LicenseStatus = "Pending", // Default status
+                    FullName = "New Guide", 
+                    LicenseStatus = "Pending",
                     IsActive = true,
                     IsAvailable = false,
                     IsVerified = false
