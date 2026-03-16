@@ -33,6 +33,27 @@
   },
   {
     "ContainingType": "TourMate.Backend.Controllers.BookingsController",
+    "Method": "CompleteTrip",
+    "RelativePath": "api/Bookings/complete/{bookingId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bookingId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "review",
+        "Type": "TourMate.Backend.Controllers.TripReviewDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TourMate.Backend.Controllers.BookingsController",
     "Method": "GetGuideBookings",
     "RelativePath": "api/Bookings/guide/{guideId}",
     "HttpMethod": "GET",
@@ -56,6 +77,22 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "TourMate.Backend.Controllers.BookingsController",
+    "Method": "GetGuideReviews",
+    "RelativePath": "api/Bookings/guide/reviews/{guideId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guideId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "TourMate.Backend.Controllers.BookingsController",
@@ -89,6 +126,43 @@
       {
         "Name": "status",
         "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TourMate.Backend.Controllers.BookingsController",
+    "Method": "StartTrip",
+    "RelativePath": "api/Bookings/start/{bookingId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bookingId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "touristLoc",
+        "Type": "TourMate.Backend.Controllers.BookingLocationDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TourMate.Backend.Controllers.BookingsController",
+    "Method": "GetTouristBookings",
+    "RelativePath": "api/Bookings/tourist/{touristId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "touristId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

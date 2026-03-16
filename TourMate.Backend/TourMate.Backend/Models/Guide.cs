@@ -37,5 +37,6 @@ namespace TourMate.Backend.Models
 
         [ForeignKey("UserId")]
         public virtual User? User { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }

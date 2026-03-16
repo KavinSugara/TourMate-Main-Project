@@ -104,16 +104,50 @@
   display: inline-block;
 }
 
+/* Updated Booking Textarea */
+.booking-textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  resize: none;
+  height: 70px;
+  box-sizing: border-box; /* Crucial for internal padding */
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.booking-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
+}
+
+/* Guide Dashboard Specific: Tourist Plan Box */
+.tourist-plan-box {
+  background: #f0f7ff;
+  padding: 12px;
+  border-left: 4px solid #007bff;
+  margin: 10px 0;
+  font-style: italic;
+  color: #2c3e50;
+  border-radius: 0 6px 6px 0;
+  line-height: 1.4;
+}
+
 .book-btn-sidebar {
   width: 100%;
   margin-top: 12px;
-  padding: 8px;
+  padding: 10px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .book-btn-sidebar:hover {

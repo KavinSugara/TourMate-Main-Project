@@ -52,28 +52,24 @@ namespace TourMate.Backend.Controllers
         [HttpPost("request/{guideId}")]
         public async Task<IActionResult> RequestGuide(int guideId, [FromBody] Booking bookingRequest)
         {
-            // Search for guide by either their primary ID or their associated UserId
             var guide = await _context.Guides.FirstOrDefaultAsync(g => g.Id == guideId || g.UserId == guideId);
+            if (guide == null) return NotFound("Guide not found.");
 
-            if (guide == null)
-            {
-                return NotFound("Guide not found in database.");
-            }
-
-            // Create a rich notification object for SignalR
+            // ADDED: Include the new structured fields in the notification object
             var notification = new
             {
-                bookingId = bookingRequest.BookingId, // The ID from your SQL Bookings table
+                bookingId = bookingRequest.BookingId,
                 guideId = guide.UserId,
                 touristName = bookingRequest.TouristName,
-                bookingDate = DateTime.Now,
-                message = $"New booking request for {guide.FullName}!"
+                touristMessage = bookingRequest.TouristMessage,
+                estimatedStartTime = bookingRequest.EstimatedStartTime, // ADD THIS
+                duration = bookingRequest.Duration,                   // ADD THIS
+                groupSize = bookingRequest.GroupSize,                 // ADD THIS
+                bookingDate = DateTime.Now
             };
 
-            // BROADCAST: This sends the request to the Guide Dashboard instantly
             await _hubContext.Clients.All.SendAsync("ReceiveBookingRequest", notification);
-
-            return Ok(new { Message = "Notification sent successfully", Data = notification });
+            return Ok(new { Message = "Notification sent successfully" });
         }
     }
 }

@@ -11,6 +11,7 @@ const GuideDashboard = () => {
 
     const [isOnline, setIsOnline] = useState(false);
     const [notifications, setNotifications] = useState([]); 
+    const [reviews, setReviews] = useState([]); // NEW: State for feedback
     const [profile, setProfile] = useState({ 
         fullName: '', 
         licenseNumber: '', 
@@ -23,7 +24,7 @@ const GuideDashboard = () => {
 
     // 1. DATABASE & SIGNALR SYNC
     useEffect(() => {
-        // A. Load existing Pending requests from SQL Database (Persistence)
+        // A. Load existing Pending requests from SQL Database
         const fetchPendingBookings = async () => {
             try {
                 const res = await axios.get(`http://localhost:5211/api/Bookings/guide/${userId}`);
@@ -33,22 +34,33 @@ const GuideDashboard = () => {
             }
         };
 
-        // B. FIXED: Listen for new real-time requests (SignalR)
+        // B. Listen for new real-time events (Requests AND Reviews)
         const initializeSignalR = async () => {
             await startConnection((data) => {
-                console.log("🔔 SignalR Data Received in Dashboard:", data);
+                console.log("🔔 SignalR: Booking Request Received", data);
                 
-                // Ensure data is for this specific guide
                 if (data.guideId && data.guideId.toString() === userId.toString()) {
-                    
-                    // PREVENT DUPLICATES: Only add if bookingId isn't already in the list
                     setNotifications(prev => {
-                        const exists = prev.find(n => n.bookingId === data.bookingId);
-                        if (exists) return prev; // Already exists, do nothing
-                        return [data, ...prev]; // Add new notification to top
+                        const bookingId = data.bookingId || data.BookingId;
+                        const exists = prev.find(n => (n.bookingId || n.BookingId) === bookingId);
+                        if (exists) return prev; 
+                        return [data, ...prev]; 
                     });
+                    alert(`New Booking Request from ${data.touristName || data.TouristName}!`);
+                }
+            });
 
-                    alert(`New Booking Request from ${data.touristName}!`);
+            // NEW: Listen for instant reviews from tourists without needing a reload
+            connection.on("ReceiveReviewUpdate", (newReview) => {
+                console.log("🔔 SignalR: New Review Received", newReview);
+                if (newReview.guideUserId.toString() === userId.toString()) {
+                    setReviews(prev => {
+                        // Prevent duplicate state updates if SignalR fires twice
+                        const exists = prev.find(r => r.bookingId === newReview.bookingId);
+                        if (exists) return prev;
+                        return [newReview, ...prev];
+                    });
+                    alert(`⭐ New feedback received from ${newReview.touristName}!`);
                 }
             });
         };
@@ -57,9 +69,16 @@ const GuideDashboard = () => {
             fetchPendingBookings();
             initializeSignalR();
         }
+
+        // Cleanup listeners on unmount
+        return () => {
+            if (connection) {
+                connection.off("ReceiveReviewUpdate");
+            }
+        };
     }, [userId]);
 
-    // 2. PERSISTENCE: Load profile and availability status on page load
+    // 2. PERSISTENCE: Load profile, availability, and existing reviews on page load
     useEffect(() => {
         const fetchCurrentStatus = async () => {
             try {
@@ -77,29 +96,38 @@ const GuideDashboard = () => {
                     });
                 }
             } catch (err) {
-                console.log("Initial fetch failed.");
+                console.log("Initial profile fetch failed.");
             }
         };
-        fetchCurrentStatus();
+
+        const fetchReviews = async () => {
+            try {
+                const res = await axios.get(`http://localhost:5211/api/Bookings/guide/reviews/${userId}`);
+                setReviews(res.data);
+            } catch (err) {
+                console.error("Error fetching reviews history:", err);
+            }
+        };
+
+        if (userId) {
+            fetchCurrentStatus();
+            fetchReviews();
+        }
     }, [userId]);
 
     // 3. PERSISTENT ACTION: Update SQL Status and notify tourist
     const handleResponse = async (booking, accepted) => {
         const statusText = accepted ? "Accepted" : "Declined";
+        const bookingId = booking.bookingId || booking.BookingId;
+        const touristName = booking.touristName || booking.TouristName;
         
         try {
-            // STEP A: Update the record in SQL Table (Persistence)
-            await axios.patch(`http://localhost:5211/api/Bookings/respond/${booking.bookingId}`, 
+            await axios.patch(`http://localhost:5211/api/Bookings/respond/${bookingId}`, 
                 JSON.stringify(statusText),
                 { headers: { 'Content-Type': 'application/json' } }
             );
-
-            // STEP B: Notify the tourist via SignalR (Real-time)
-            await connection.invoke("RespondToBooking", booking.touristName, profile.fullName, accepted);
-            
-            // STEP C: Clear from local dashboard view
-            setNotifications(prev => prev.filter(n => n.bookingId !== booking.bookingId));
-            
+            await connection.invoke("RespondToBooking", touristName, profile.fullName, accepted);
+            setNotifications(prev => prev.filter(n => (n.bookingId || n.BookingId) !== bookingId));
             alert(`You have ${statusText} the request.`);
         } catch (err) {
             console.error("Response error:", err);
@@ -118,7 +146,6 @@ const GuideDashboard = () => {
                     headers: { 'Content-Type': 'application/json' }
                 });
                 setIsOnline(status);
-                // Broadcast to all tourists to update map markers
                 await connection.invoke("NotifyStatusChange", parseInt(userId), status, lat, lon);
                 alert(status ? "You are now visible to tourists!" : "You are now offline.");
             } catch (err) {
@@ -165,7 +192,7 @@ const GuideDashboard = () => {
         <div className="guide-container">
             <div className="header-section">
                 <h1>Guide Control Center</h1>
-                <button className="logout-btn" onClick={handleLogout} style={{ padding: '8px 15px', cursor: 'pointer' }}>Logout</button>
+                <button className="logout-btn" onClick={handleLogout}>Logout</button>
             </div>
 
             <div className={`status-card ${isOnline ? 'status-online' : 'status-offline'}`}>
@@ -173,7 +200,7 @@ const GuideDashboard = () => {
                     <p style={{ margin: 0, fontSize: '0.9rem', color: '#718096' }}>Visibility Status</p>
                     <h3 style={{ margin: 0 }}>{isOnline ? "🟢 You are currently Online" : "🔴 You are currently Offline"}</h3>
                 </div>
-                <button onClick={toggleAvailability} className="toggle-btn" style={{ padding: '10px 20px', fontWeight: 'bold', cursor: 'pointer' }}>
+                <button onClick={toggleAvailability} className="toggle-btn">
                     {isOnline ? "Go Offline" : "Go Online (Share Location)"}
                 </button>
             </div>
@@ -184,27 +211,29 @@ const GuideDashboard = () => {
                     <p style={{ color: '#a0aec0' }}>No active requests in your queue.</p>
                 ) : (
                     notifications.map((note, index) => (
-                        <div key={note.bookingId || index} className="booking-item" style={{ padding: '15px', backgroundColor: '#fff', marginBottom: '10px', borderRadius: '8px', border: '1px solid #fbd38d' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div>
-                                    <strong>{note.touristName}</strong> wants to book you!
-                                    <p style={{ margin: '5px 0 0', fontSize: '0.85rem', color: '#4a5568' }}>
-                                        Received: {note.bookingDate ? new Date(note.bookingDate).toLocaleString() : "Just now"}
+                        <div key={(note.bookingId || note.BookingId) || index} className="booking-item" style={{ padding: '20px', backgroundColor: '#fff', marginBottom: '15px', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #edf2f7', paddingBottom: '10px' }}>
+                                    <strong style={{ fontSize: '1.1rem', color: '#2d3748' }}>{note.touristName || note.TouristName}</strong>
+                                    <span style={{ fontSize: '0.8rem', color: '#a0aec0' }}>Ref: #{(note.bookingId || note.BookingId)}</span>
+                                </div>
+
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', fontSize: '0.9rem' }}>
+                                    <div>🕒 Start Time: <b>{(note.estimatedStartTime || note.EstimatedStartTime) ? new Date(note.estimatedStartTime || note.EstimatedStartTime).toLocaleString() : "Not specified"}</b></div>
+                                    <div>⏳ Duration: <b>{note.duration || note.Duration || "N/A"}</b></div>
+                                    <div>👥 Group Size: <b>{note.groupSize || note.GroupSize || 1} Person(s)</b></div>
+                                    <div>📅 Requested: <b>{new Date(note.bookingDate || note.BookingDate).toLocaleDateString()}</b></div>
+                                </div>
+
+                                <div style={{ backgroundColor: '#f7fafc', padding: '12px', borderRadius: '8px', borderLeft: '4px solid #3182ce' }}>
+                                    <p style={{ margin: 0, fontStyle: 'italic', color: '#2d3748', lineHeight: '1.5' }}>
+                                        "{note.touristMessage || note.TouristMessage || note.message || "No additional details provided."}"
                                     </p>
                                 </div>
-                                <div>
-                                    <button 
-                                        onClick={() => handleResponse(note, true)} 
-                                        style={{ backgroundColor: '#48bb78', color: 'white', border: 'none', marginRight: '8px', padding: '8px 15px', borderRadius: '4px', cursor: 'pointer' }}
-                                    >
-                                        Accept
-                                    </button>
-                                    <button 
-                                        onClick={() => handleResponse(note, false)} 
-                                        style={{ backgroundColor: '#f56565', color: 'white', border: 'none', padding: '8px 15px', borderRadius: '4px', cursor: 'pointer' }}
-                                    >
-                                        Decline
-                                    </button>
+
+                                <div style={{ display: 'flex', gap: '10px', marginTop: '5px' }}>
+                                    <button onClick={() => handleResponse(note, true)} style={{ flex: 1, backgroundColor: '#48bb78', color: 'white', border: 'none', padding: '12px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}>Accept Request</button>
+                                    <button onClick={() => handleResponse(note, false)} style={{ flex: 1, backgroundColor: '#f56565', color: 'white', border: 'none', padding: '12px', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold' }}>Decline</button>
                                 </div>
                             </div>
                         </div>
@@ -212,7 +241,35 @@ const GuideDashboard = () => {
                 )}
             </div>
 
-            <div className="profile-card">
+            {/* INSTANT FEEDBACK SECTION */}
+            <div className="reviews-section" style={{ marginTop: '30px', padding: '20px', backgroundColor: '#fff', borderRadius: '12px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0' }}>
+                <h3 style={{ borderBottom: '2px solid #f0f2f5', paddingBottom: '10px' }}>⭐ My Performance & Reviews</h3>
+                {reviews.length === 0 ? (
+                    <p style={{ color: '#a0aec0', textAlign: 'center', padding: '20px' }}>You haven't received any reviews yet. Complete more tours to build your reputation!</p>
+                ) : (
+                    <div className="reviews-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '15px', marginTop: '15px' }}>
+                        {reviews.map((rev, index) => (
+                            <div key={rev.bookingId || index} style={{ padding: '15px', border: '1px solid #edf2f7', borderRadius: '8px', backgroundColor: '#f8fafc' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+                                    <span style={{ fontWeight: 'bold', color: '#2d3748' }}>{rev.touristName}</span>
+                                    <span style={{ color: '#f1c40f' }}>
+                                        {"★".repeat(rev.rating)}{"☆".repeat(5 - rev.rating)}
+                                    </span>
+                                </div>
+                                <p style={{ margin: '0', fontSize: '0.9rem', fontStyle: 'italic', color: '#4a5568' }}>
+                                    "{rev.reviewComment || "No comment left."}"
+                                </p>
+                                <div style={{ marginTop: '10px', fontSize: '0.75rem', color: '#a0aec0' }}>
+                                    Tour completed: {new Date(rev.completedDate || rev.CompletedDate).toLocaleDateString()}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+            {/* Profile Update Section */}
+            <div className="profile-card" style={{ marginTop: '30px' }}>
                 <h3 style={{ marginBottom: '20px' }}>Update Professional Profile</h3>
                 <div className="form-grid">
                     <div className="input-group">

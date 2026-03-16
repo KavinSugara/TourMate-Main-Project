@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TourMate.Backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8db6cec3b37114902e28318a67f1d8a72356cb1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d3436c4a91666cefafdf026de345d983a72c6ec")]
 [assembly: System.Reflection.AssemblyProductAttribute("TourMate.Backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TourMate.Backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
