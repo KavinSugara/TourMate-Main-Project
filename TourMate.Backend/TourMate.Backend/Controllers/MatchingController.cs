@@ -31,11 +31,13 @@ namespace TourMate.Backend.Controllers
             [FromQuery] double lat,
             [FromQuery] double lon,
             [FromQuery] double radiusKm = 20.0,
-            [FromQuery] string? category = null)
+            [FromQuery] string? category = null,
+            [FromQuery] string? specialization = null) // ADDED: Specialization filter
         {
             try
             {
-                var guides = await _matchingService.GetNearbyGuidesAsync(lat, lon, radiusKm, category);
+                // Updated service call to handle the specialization parameter
+                var guides = await _matchingService.GetNearbyGuidesAsync(lat, lon, radiusKm, category, specialization);
 
                 if (guides == null || !guides.Any())
                     return NotFound(new { message = "No verified guides matching your criteria were found." });
@@ -48,23 +50,21 @@ namespace TourMate.Backend.Controllers
             }
         }
 
-        // FIXED: Now accepts a Booking object from the frontend to prevent 400 Bad Request
         [HttpPost("request/{guideId}")]
         public async Task<IActionResult> RequestGuide(int guideId, [FromBody] Booking bookingRequest)
         {
             var guide = await _context.Guides.FirstOrDefaultAsync(g => g.Id == guideId || g.UserId == guideId);
             if (guide == null) return NotFound("Guide not found.");
 
-            // ADDED: Include the new structured fields in the notification object
             var notification = new
             {
                 bookingId = bookingRequest.BookingId,
                 guideId = guide.UserId,
                 touristName = bookingRequest.TouristName,
                 touristMessage = bookingRequest.TouristMessage,
-                estimatedStartTime = bookingRequest.EstimatedStartTime, // ADD THIS
-                duration = bookingRequest.Duration,                   // ADD THIS
-                groupSize = bookingRequest.GroupSize,                 // ADD THIS
+                estimatedStartTime = bookingRequest.EstimatedStartTime,
+                duration = bookingRequest.Duration,
+                groupSize = bookingRequest.GroupSize,
                 bookingDate = DateTime.Now
             };
 

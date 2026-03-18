@@ -14,6 +14,7 @@ namespace TourMate.Backend.Services
             _context = context;
         }
 
+        // Haversine formula to calculate distance between two GPS points
         public double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
         {
             var dLat = ToRadians(lat2 - lat1);
@@ -29,31 +30,53 @@ namespace TourMate.Backend.Services
 
         private double ToRadians(double angle) => Math.PI * angle / 180.0;
 
-        public async Task<List<object>> GetNearbyGuidesAsync(double touristLat, double touristLon, double radiusKm, string? category = null)
+        public async Task<List<object>> GetNearbyGuidesAsync(
+            double touristLat,
+            double touristLon,
+            double radiusKm,
+            string? category = null,
+            string? specialization = null)
         {
+            // 1. IDENTIFY BUSY GUIDES
+            var busyGuideIds = await _context.Bookings
+                .Where(b => b.Status == "Active" || b.Status == "Accepted")
+                .Select(b => b.GuideId)
+                .Distinct()
+                .ToListAsync();
+
+            // 2. INITIAL FILTERING
+            // Note: I have commented out g.IsVerified so you can test guides immediately.
+            // Ensure you click "Go Online" in the Guide Dashboard to set IsAvailable to True.
             var query = _context.Guides.Where(g =>
                 g.IsActive &&
                 g.IsAvailable &&
-                g.IsVerified &&
+                // g.IsVerified && // <--- Commented out for testing visibility
                 g.Latitude != null &&
-                g.Longitude != null);
+                g.Longitude != null &&
+                !busyGuideIds.Contains(g.UserId));
 
-            if (!string.IsNullOrEmpty(category))
+            // 3. APPLY CATEGORY FILTER
+            if (!string.IsNullOrEmpty(category) && category != "All")
             {
                 query = query.Where(g => g.Category == category);
             }
 
-            var candidates = await query.ToListAsync();
+            // 4. APPLY SPECIALIZATION FILTER
+            if (!string.IsNullOrEmpty(specialization) && specialization != "All")
+            {
+                query = query.Where(g => g.Specialization.Contains(specialization));
+            }
 
+            var candidates = await query.ToListAsync();
             var result = new List<object>();
 
+            // 5. CALCULATE DISTANCE AND REPUTATION
             foreach (var g in candidates)
             {
                 double dist = CalculateDistance(touristLat, touristLon, (double)g.Latitude!, (double)g.Longitude!);
 
                 if (dist <= radiusKm)
                 {
-                    // Calculate Reputation for this guide
                     var reviews = _context.Bookings
                         .Where(b => b.GuideId == g.UserId && b.Status == "Completed" && b.Rating != null)
                         .Select(b => b.Rating.Value)
@@ -80,6 +103,7 @@ namespace TourMate.Backend.Services
                 }
             }
 
+            // 6. SORT BY DISTANCE
             return result.OrderBy(x => ((dynamic)x).Distance).ToList();
         }
     }

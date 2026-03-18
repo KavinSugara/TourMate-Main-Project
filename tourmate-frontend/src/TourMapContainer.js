@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
 import TourMap from './TourMap';
 import { startConnection, connection } from './SignalRService';
+import toast from 'react-hot-toast';
 import './TouristDashboard.css';
 
 function TourMapContainer() {
@@ -11,21 +12,31 @@ function TourMapContainer() {
     const [radius, setRadius] = useState(10);
     const [location, setLocation] = useState({ lat: 7.1550, lon: 80.0550 });
 
-    // 1. Fetch nearby guides from backend
+    // Step A: New Filter States
+    const [selectedCategory, setSelectedCategory] = useState("All");
+    const [selectedSpecialty, setSelectedSpecialty] = useState("All");
+
+    // Step B: Update fetchGuides to handle Multi-Criteria Filtering and Busy Status
     const fetchGuides = useCallback(async () => {
         try {
             const response = await axios.get(`http://localhost:5211/api/Matching/nearby`, {
-                params: { lat: location.lat, lon: location.lon, radiusKm: radius }
+                params: { 
+                    lat: location.lat, 
+                    lon: location.lon, 
+                    radiusKm: radius,
+                    // If "All" is selected, send null so the backend skips that filter
+                    category: selectedCategory === "All" ? null : selectedCategory,
+                    specialization: selectedSpecialty === "All" ? null : selectedSpecialty 
+                }
             });
             setGuides(response.data);
         } catch (error) {
             console.error("Fetch error:", error);
+            // We don't toast here to avoid spamming the user during slider movements
         }
-    }, [location, radius]);
+    }, [location, radius, selectedCategory, selectedSpecialty]);
 
-    // 2. Navigation: Redirect to the dedicated Booking Form
     const handleBooking = (guide) => {
-        // Passes the specific guide's ID and Name to the form via routing state
         navigate('/booking-form', { 
             state: { 
                 guideId: guide.userId || guide.id, 
@@ -34,23 +45,22 @@ function TourMapContainer() {
         });
     };
 
-    // 3. SignalR Integration for real-time response alerts
+    // Real-time updates: Refresh discovery when guides become Busy or change status
     useEffect(() => {
         const setupSignalR = async () => {
             await startConnection((data) => {});
 
-            // Listen for acceptance/decline from guides
+            // Refresh when a guide accepts (becomes Busy) or declines
             connection.on("ReceiveBookingResponse", (guideName, status) => {
-                alert(`Guide ${guideName} has ${status} your booking request!`);
+                fetchGuides(); 
+                toast(`${guideName} has ${status} your booking request!`, {
+                    icon: status === 'Accepted' ? '✅' : '❌'
+                });
             });
 
-            // Listen for guides going online/offline to refresh the map
+            // Refresh when guides toggle Online/Offline
             connection.on("ReceiveStatusUpdate", (update) => {
-                if (update.isOnline) {
-                    fetchGuides(); 
-                } else {
-                    setGuides(prev => prev.filter(g => (g.userId || g.id) !== update.guideUserId));
-                }
+                fetchGuides(); 
             });
         };
         setupSignalR();
@@ -62,7 +72,6 @@ function TourMapContainer() {
         };
     }, [fetchGuides]);
 
-    // 4. Geolocation: Get current position on component mount
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -72,7 +81,6 @@ function TourMapContainer() {
         }
     }, []);
 
-    // 5. Initial fetch and refresh on radius change
     useEffect(() => { 
         fetchGuides(); 
     }, [fetchGuides]);
@@ -94,69 +102,113 @@ function TourMapContainer() {
                         border: 'none', 
                         borderRadius: '6px', 
                         cursor: 'pointer',
-                        fontWeight: 'bold',
-                        transition: 'background 0.3s'
+                        fontWeight: 'bold'
                     }}
-                    onMouseOver={(e) => e.target.style.background = '#2980b9'}
-                    onMouseOut={(e) => e.target.style.background = '#3498db'}
                 >
                     📋 My Bookings
                 </button>
             </header>
 
             <main className="dashboard-main">
-                {/* Sidebar: List of Nearby Guides */}
                 <div className="guide-sidebar">
-                    <div className="sidebar-header">
-                        <h3>Available Guides</h3>
-                        <div className="radius-control">
-                            <label>Search Radius: <b>{radius} km</b></label>
+                    <div className="sidebar-header" style={{ paddingBottom: '15px', borderBottom: '1px solid #edf2f7' }}>
+                        <h3>Discovery Filters</h3>
+                        
+                        <div className="radius-control" style={{ marginBottom: '15px' }}>
+                            <label style={{ fontSize: '0.85rem' }}>Search Radius: <b>{radius} km</b></label>
                             <input 
                                 type="range" min="1" max="100" value={radius} 
                                 onChange={(e) => setRadius(e.target.value)} 
+                                style={{ width: '100%' }}
                             />
+                        </div>
+
+                        {/* Step C: Advanced Filter UI */}
+                        <div className="filter-section" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            <div className="filter-group">
+                                <label style={{ fontSize: '0.8rem', fontWeight: 'bold', color: '#4a5568' }}>Category</label>
+                                <select 
+                                    value={selectedCategory} 
+                                    onChange={(e) => setSelectedCategory(e.target.value)}
+                                    style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #e2e8f0', background: '#fff' }}
+                                >
+                                    <option value="All">All Categories</option>
+                                    <option value="National">National</option>
+                                    <option value="Chauffeur">Chauffeur</option>
+                                    <option value="Site">Site</option>
+                                </select>
+                            </div>
+
+                            <div className="filter-group">
+                                <label style={{ fontSize: '0.8rem', fontWeight: 'bold', color: '#4a5568' }}>Specialization</label>
+                                <select 
+                                    value={selectedSpecialty} 
+                                    onChange={(e) => setSelectedSpecialty(e.target.value)}
+                                    style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #e2e8f0', background: '#fff' }}
+                                >
+                                    <option value="All">All Specialties</option>
+                                    <option value="Hiking">Hiking</option>
+                                    <option value="Wildlife">Wildlife</option>
+                                    <option value="History">History</option>
+                                    <option value="Culture">Culture</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="guide-list-container">
+                    <div className="guide-list-container" style={{ marginTop: '20px' }}>
                         {guides.length === 0 ? (
-                            <div className="no-guides-placeholder">
-                                <p>No guides found in this radius.</p>
-                                <p style={{ fontSize: '0.8rem', color: '#718096' }}>Try increasing the search distance.</p>
+                            <div className="no-guides-placeholder" style={{ textAlign: 'center', padding: '20px' }}>
+                                <p style={{ color: '#718096' }}>No available guides match these filters.</p>
+                                <button 
+                                    onClick={() => {setSelectedCategory("All"); setSelectedSpecialty("All");}}
+                                    style={{ background: 'none', border: 'none', color: '#3182ce', cursor: 'pointer', textDecoration: 'underline', fontSize: '0.9rem' }}
+                                >
+                                    Clear all filters
+                                </button>
                             </div>
                         ) : (
                             guides.map(guide => (
-                                <div key={guide.id || guide.userId} className="guide-item-card">
+                                <div key={guide.userId || guide.id} className="guide-item-card" style={{ borderLeft: '5px solid #007bff', marginBottom: '15px' }}>
                                     <div className="card-top">
                                         <h4 className="guide-name">{guide.fullName}</h4>
-                                        <span className="guide-price">
-                                            LKR {guide.baseRate?.toLocaleString() || "N/A"}
-                                        </span>
-                                    </div>
-                                    <div className="guide-meta">
-                                        {guide.category} • {guide.specialization}
+                                        <span className="guide-price">LKR {guide.baseRate?.toLocaleString() || "N/A"}</span>
                                     </div>
                                     
-                                    <button 
-                                        className="book-btn-sidebar" 
-                                        onClick={() => handleBooking(guide)}
-                                        style={{ 
-                                            width: '100%', 
-                                            marginTop: '10px', 
-                                            padding: '10px', 
-                                            borderRadius: '6px',
-                                            cursor: 'pointer'
-                                        }}
-                                    >
-                                        Book This Guide
-                                    </button>
+                                    <div style={{ color: '#f1c40f', fontSize: '0.9rem', margin: '5px 0' }}>
+                                        {"★".repeat(Math.floor(guide.averageRating || 0))}
+                                        {"☆".repeat(5 - Math.floor(guide.averageRating || 0))}
+                                        <span style={{ color: '#a0aec0', marginLeft: '5px' }}>
+                                            ({guide.averageRating > 0 ? guide.averageRating.toFixed(1) : "New"})
+                                        </span>
+                                    </div>
+
+                                    <div className="guide-meta" style={{ fontSize: '0.8rem', marginBottom: '10px' }}>
+                                        <b>{guide.category}</b> • {guide.specialization || "General"}
+                                    </div>
+                                    
+                                    <div style={{ display: 'flex', gap: '8px' }}>
+                                        <button 
+                                            className="view-profile-btn"
+                                            onClick={() => navigate(`/guide-profile/${guide.userId || guide.id}`)}
+                                            style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #007bff', background: 'white', color: '#007bff', cursor: 'pointer', fontWeight: '600', fontSize: '0.8rem' }}
+                                        >
+                                            Profile
+                                        </button>
+                                        <button 
+                                            className="book-btn-sidebar" 
+                                            onClick={() => handleBooking(guide)}
+                                            style={{ flex: 1, padding: '8px', borderRadius: '6px', background: '#007bff', color: 'white', border: 'none', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.8rem' }}
+                                        >
+                                            Book Now
+                                        </button>
+                                    </div>
                                 </div>
                             ))
                         )}
                     </div>
                 </div>
 
-                {/* Main Section: The Map */}
                 <div className="map-view-section">
                     <TourMap 
                         guides={guides} 

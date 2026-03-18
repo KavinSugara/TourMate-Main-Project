@@ -170,6 +170,48 @@
   },
   {
     "ContainingType": "TourMate.Backend.Controllers.GuidesController",
+    "Method": "GetAllGuidesForAdmin",
+    "RelativePath": "api/Guides/admin/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TourMate.Backend.Controllers.GuidesController",
+    "Method": "GetGuideEarnings",
+    "RelativePath": "api/Guides/earnings/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TourMate.Backend.Controllers.GuidesController",
+    "Method": "GetPublicProfile",
+    "RelativePath": "api/Guides/public-profile/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TourMate.Backend.Controllers.GuidesController",
     "Method": "ToggleAvailability",
     "RelativePath": "api/Guides/toggle-availability/{userId}",
     "HttpMethod": "PATCH",
@@ -248,6 +290,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "TourMate.Backend.Controllers.GuidesController",
+    "Method": "VerifyGuide",
+    "RelativePath": "api/Guides/verify/{guideId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guideId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "isVerified",
+        "Type": "System.Boolean",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TourMate.Backend.Controllers.MatchingController",
     "Method": "GetNearbyGuides",
     "RelativePath": "api/Matching/nearby",
@@ -272,6 +335,11 @@
       },
       {
         "Name": "category",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "specialization",
         "Type": "System.String",
         "IsRequired": false
       }

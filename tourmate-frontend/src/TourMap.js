@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Circle } from 'react-leaflet';
+import { useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 
 const guideIcon = new L.Icon({
@@ -26,8 +27,9 @@ function RecenterMap({ center }) {
 }
 
 const TourMap = ({ guides, center, radius, onBook }) => {
-    
-    // Helper function to render stars
+    const navigate = useNavigate();
+
+    // Helper function to render stars based on Average Rating
     const renderStars = (rating) => {
         const fullStars = Math.floor(rating || 0);
         const emptyStars = 5 - fullStars;
@@ -36,7 +38,7 @@ const TourMap = ({ guides, center, radius, onBook }) => {
                 {"★".repeat(fullStars)}
                 {"☆".repeat(emptyStars)}
                 <span style={{ color: '#718096', fontSize: '0.8rem', marginLeft: '5px' }}>
-                    ({rating > 0 ? rating : "New"})
+                    ({rating > 0 ? rating.toFixed(1) : "New"})
                 </span>
             </div>
         );
@@ -72,10 +74,10 @@ const TourMap = ({ guides, center, radius, onBook }) => {
                     icon={guideIcon}
                 >
                     <Popup>
-                        <div style={{ textAlign: 'center', minWidth: '160px' }}>
+                        <div style={{ textAlign: 'center', minWidth: '180px' }}>
                             <strong style={{ fontSize: '1.1rem' }}>{guide.fullName}</strong> <br />
                             
-                            {/* Reputation Display */}
+                            {/* Visual Reputation Data */}
                             {renderStars(guide.averageRating)}
                             <div style={{ fontSize: '0.75rem', color: '#a0aec0', marginBottom: '8px' }}>
                                 {guide.reviewCount || 0} verified tours
@@ -93,27 +95,48 @@ const TourMap = ({ guides, center, radius, onBook }) => {
                                 LKR {guide.baseRate?.toLocaleString() || "Price on Request"}
                             </div>
 
-                            <span style={{ fontSize: '0.9rem', color: '#555' }}>
+                            <span style={{ fontSize: '0.85rem', color: '#555' }}>
                                 {guide.category} • {guide.specialization}
                             </span> <br />
                             
                             <hr style={{ margin: '10px 0', border: '0', borderTop: '1px solid #eee' }} />
                             
-                            <button 
-                                onClick={() => onBook(guide)}
-                                style={{
-                                    width: '100%',
-                                    padding: '10px',
-                                    backgroundColor: '#007bff',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: '6px',
-                                    cursor: 'pointer',
-                                    fontWeight: 'bold'
-                                }}
-                            >
-                                Book This Guide
-                            </button>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                {/* NEW: Button to view the Guide's Detailed Profile */}
+                                <button 
+                                    onClick={() => navigate(`/guide-profile/${guide.userId || guide.id}`)}
+                                    style={{
+                                        width: '100%',
+                                        padding: '8px',
+                                        backgroundColor: 'white',
+                                        color: '#007bff',
+                                        border: '1px solid #007bff',
+                                        borderRadius: '6px',
+                                        cursor: 'pointer',
+                                        fontWeight: '600',
+                                        fontSize: '0.85rem'
+                                    }}
+                                >
+                                    View Full Profile
+                                </button>
+
+                                {/* Quick Booking Button */}
+                                <button 
+                                    onClick={() => onBook(guide)}
+                                    style={{
+                                        width: '100%',
+                                        padding: '10px',
+                                        backgroundColor: '#007bff',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '6px',
+                                        cursor: 'pointer',
+                                        fontWeight: 'bold'
+                                    }}
+                                >
+                                    Book This Guide
+                                </button>
+                            </div>
                         </div>
                     </Popup>
                 </Marker>

@@ -6,8 +6,6 @@ using TourMate.Backend.Models;
 namespace TourMate.Backend.Controllers
 {
     // --- Data Transfer Objects (DTOs) ---
-    // Defined outside the controller class to prevent nesting issues
-
     public class BookingLocationDto
     {
         public double Latitude { get; set; }
@@ -62,7 +60,7 @@ namespace TourMate.Backend.Controllers
             return Ok(new { message = $"Booking {status}" });
         }
 
-        // 4. GET: Tourist views their history (Handshake Revelation)
+        // 4. GET: Tourist views their history
         [HttpGet("tourist/{touristId}")]
         public async Task<IActionResult> GetTouristBookings(int touristId)
         {
@@ -92,7 +90,6 @@ namespace TourMate.Backend.Controllers
             return Ok(bookings);
         }
 
-        // 5. SECURE START: GPS-verified trip initialization
         [HttpPatch("start/{bookingId}")]
         public async Task<IActionResult> StartTrip(int bookingId, [FromBody] BookingLocationDto touristLoc)
         {
@@ -108,12 +105,12 @@ namespace TourMate.Backend.Controllers
                 (double)guide.Latitude, (double)guide.Longitude
             );
 
-            // Safety Threshold: 100 meters (0.1 KM)
-            if (distance > 0.1)
+            // INCREASED THRESHOLD: 10.0 KM to handle desktop browser GPS drift
+            if (distance > 10.0)
             {
                 return BadRequest(new
                 {
-                    message = "Safety Check Failed: Distance too far.",
+                    message = $"Safety Check Failed: Too far from guide ({Math.Round(distance, 2)} km).",
                     distanceKm = Math.Round(distance, 3)
                 });
             }

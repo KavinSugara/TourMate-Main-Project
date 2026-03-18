@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { startConnection, connection } from '../SignalRService'; // Ensure SignalR is imported
+import { startConnection, connection } from '../SignalRService';
+import toast from 'react-hot-toast';
+import ReviewModal from './ReviewModal'; 
 import '../TouristTrips.css';
 
 const TouristTrips = () => {
     const [trips, setTrips] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [activeBookingId, setActiveBookingId] = useState(null);
+    
     const touristId = localStorage.getItem('userId');
     const navigate = useNavigate();
 
@@ -19,6 +24,7 @@ const TouristTrips = () => {
             setTrips(res.data);
         } catch (err) {
             console.error("Error fetching trips:", err);
+            toast.error("Failed to load your bookings.");
         } finally {
             setLoading(false);
         }
@@ -33,16 +39,21 @@ const TouristTrips = () => {
         }
     }, [touristId, navigate]);
 
-    // 2. REAL-TIME SYNC: Listen for Guide Responses (Accept/Decline)
+    // 2. REAL-TIME SYNC: Listen for Guide Responses
     useEffect(() => {
         const setupSignalR = async () => {
             await startConnection(() => {}); 
 
-            // When a guide responds, refresh the list instantly
             connection.on("ReceiveBookingResponse", (guideName, status) => {
-                console.log(`🔔 SignalR: Guide ${guideName} set status to ${status}`);
                 fetchTrips(); 
-                alert(`Update: Guide ${guideName} has ${status} your booking request!`);
+                toast(`${guideName} has ${status} your booking request!`, {
+                    icon: status === 'Accepted' ? '✅' : '❌',
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                });
             });
         };
 
@@ -53,69 +64,105 @@ const TouristTrips = () => {
         };
     }, [touristId]);
 
-    // PHASE 3: SECURE GPS START TRIP HANDSHAKE
+    // PHASE 3: SECURE GPS START TRIP HANDSHAKE (Updated with specialized error handling)
     const handleStartTrip = async (bookingId) => {
         if (!navigator.geolocation) {
-            alert("Geolocation is not supported by your browser.");
+            toast.error("Geolocation is not supported by your browser.");
             return;
         }
 
         navigator.geolocation.getCurrentPosition(async (position) => {
             const { latitude, longitude } = position.coords;
 
-            try {
-                const res = await axios.patch(`http://localhost:5211/api/Bookings/start/${bookingId}`, {
-                    latitude: latitude,
-                    longitude: longitude
-                });
+            const startTask = axios.patch(`http://localhost:5211/api/Bookings/start/${bookingId}`, {
+                latitude: latitude,
+                longitude: longitude
+            });
 
-                alert("✅ Trip Started! Handshake complete.");
-                await fetchTrips(); 
+            await toast.promise(startTask, {
+                loading: 'Verifying safety handshake with guide location...',
+                success: (res) => {
+                    fetchTrips();
+                    return '✅ Trip Started! Have a safe journey.';
+                },
+                error: (err) => {
+                    // CATCH DISTANCE ERROR FROM BACKEND (Preventing the 400 Runtime Error Screen)
+                    if (err.response && err.response.status === 400) {
+                        const serverMsg = err.response.data.message;
+                        const distance = err.response.data.distanceKm;
+                        return `⚠️ ${serverMsg} (${distance} km away)`;
+                    }
+                    
+                    const errorMsg = err.response?.data?.message || "Verification failed.";
+                    return `⚠️ Handshake Failed: ${errorMsg}`;
+                }
+            });
 
-            } catch (err) {
-                const errorMsg = err.response?.data?.message || "Verification failed.";
-                alert(`⚠️ Safety Handshake Failed: ${errorMsg}`);
-            }
         }, (error) => {
-            alert("Please enable location services.");
+            toast.error("Please enable location services to start your trip.");
         }, { enableHighAccuracy: true });
     };
 
-    // PHASE 4: END TRIP & BROADCAST REVIEW (REAL-TIME)
-    const handleEndTrip = async (bookingId) => {
-        const isSafe = window.confirm("Have you reached your destination safely?");
-        if (!isSafe) return;
+    // PHASE 4: END TRIP (Trigger Modal)
+    const handleEndTrip = (bookingId) => {
+        setActiveBookingId(bookingId);
+        setIsModalOpen(true);
+    };
 
-        const rating = window.prompt("Rate your guide (1-5 stars):", "5");
-        if (rating === null) return; 
+    // PHASE 5: EMERGENCY SOS LOGIC
+    const triggerSOS = async (trip) => {
+        const confirmSOS = window.confirm("🚨 EMERGENCY: Do you want to send an SOS alert with your current location to all nearby guides and authorities?");
+        if (!confirmSOS) return;
 
-        const comment = window.prompt("Any feedback for the guide?");
-        if (comment === null) return; 
+        if (navigator.geolocation) {
+            toast.loading("Capturing precise location...");
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const { latitude, longitude } = position.coords;
+                toast.dismiss();
 
-        try {
-            // A. Save to SQL Database
-            await axios.patch(`http://localhost:5211/api/Bookings/complete/${bookingId}`, {
-                rating: parseInt(rating),
-                reviewComment: comment
-            });
-
-            // B. NEW: BROADCAST TO GUIDE DASHBOARD INSTANTLY
-            if (connection && connection.state === "Connected") {
-                const currentTrip = trips.find(t => t.bookingId === bookingId);
-                await connection.invoke("NotifyReviewSubmitted", 
-                    currentTrip.guideId, 
-                    localStorage.getItem('userEmail'), // or tourist name
-                    parseInt(rating), 
-                    comment
-                );
-            }
-
-            alert("Thank you! Your trip is complete and your review was sent.");
-            await fetchTrips(); 
-        } catch (err) {
-            console.error("End trip error:", err);
-            alert("Failed to complete trip.");
+                if (connection && connection.state === "Connected") {
+                    try {
+                        await connection.invoke("SendSOS", 
+                            localStorage.getItem('userEmail'), 
+                            latitude, 
+                            longitude, 
+                            trip.guideName
+                        );
+                        toast.error("🚨 SOS SENT SUCCESSFULLY!", {
+                            duration: 10000,
+                            position: "top-center",
+                            style: { background: '#e53e3e', color: '#fff', fontWeight: 'bold', border: '2px solid white' }
+                        });
+                    } catch (err) {
+                        toast.error("Failed to send SOS. Call emergency services.");
+                    }
+                }
+            }, (error) => {
+                toast.error("Location access denied.");
+            }, { enableHighAccuracy: true });
         }
+    };
+
+    // MODAL SUBMISSION LOGIC
+    const submitReview = async (rating, comment) => {
+        setIsModalOpen(false);
+        const completeTask = axios.patch(`http://localhost:5211/api/Bookings/complete/${activeBookingId}`, {
+            rating: parseInt(rating),
+            reviewComment: comment
+        });
+
+        await toast.promise(completeTask, {
+            loading: 'Closing trip and sharing feedback...',
+            success: () => {
+                if (connection && connection.state === "Connected") {
+                    const currentTrip = trips.find(t => t.bookingId === activeBookingId);
+                    connection.invoke("NotifyReviewSubmitted", currentTrip.guideId, localStorage.getItem('userEmail'), parseInt(rating), comment);
+                }
+                fetchTrips();
+                return "Thank you! Your review has been shared.";
+            },
+            error: "Failed to complete trip record."
+        });
     };
 
     const getStatusClass = (status) => {
@@ -182,7 +229,7 @@ const TouristTrips = () => {
                                             </p>
                                         </div>
                                         
-                                        <div className="contact-actions" style={{ display: 'flex', gap: '10px', width: '100%', marginBottom: '15px' }}>
+                                        <div className="contact-actions" style={{ display: 'flex', gap: '10px', width: '100%', marginBottom: '10px' }}>
                                             <a href={`tel:${cleanPhone(trip.guidePhone)}`} className="contact-btn call-btn" style={{ flex: 1, textAlign: 'center', padding: '10px', background: '#2c3e50', color: 'white', textDecoration: 'none', borderRadius: '6px', fontWeight: 'bold', fontSize: '0.85rem' }}>
                                                 📞 Call Guide
                                             </a>
@@ -190,6 +237,24 @@ const TouristTrips = () => {
                                                 💬 WhatsApp
                                             </a>
                                         </div>
+
+                                        {/* LIVE TRACKING BUTTON */}
+                                        <button 
+                                            onClick={() => navigate(`/track-guide/${trip.guideId}`, { state: { trip } })}
+                                            style={{ 
+                                                width: '100%', 
+                                                padding: '12px', 
+                                                background: '#3498db', 
+                                                color: 'white', 
+                                                border: 'none', 
+                                                borderRadius: '6px', 
+                                                fontWeight: 'bold', 
+                                                cursor: 'pointer',
+                                                marginBottom: '10px'
+                                            }}
+                                        >
+                                            📍 Track Guide Live
+                                        </button>
                                         
                                         {trip.status === 'Accepted' && (
                                             <button onClick={() => handleStartTrip(trip.bookingId)} className="start-trip-btn" style={{ width: '100%', padding: '12px', background: '#f39c12', color: 'white', border: 'none', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
@@ -198,9 +263,36 @@ const TouristTrips = () => {
                                         )}
 
                                         {trip.status === 'Active' && (
-                                            <button onClick={() => handleEndTrip(trip.bookingId)} className="end-trip-btn" style={{ width: '100%', padding: '12px', background: '#e53e3e', color: 'white', border: 'none', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}>
-                                                End Trip & Review Guide
-                                            </button>
+                                            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                                <button 
+                                                    onClick={() => handleEndTrip(trip.bookingId)} 
+                                                    className="end-trip-btn" 
+                                                    style={{ width: '100%', padding: '12px', background: '#e53e3e', color: 'white', border: 'none', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer' }}
+                                                >
+                                                    End Trip & Review Guide
+                                                </button>
+
+                                                <button 
+                                                    onClick={() => triggerSOS(trip)} 
+                                                    style={{ 
+                                                        width: '100%', 
+                                                        padding: '12px', 
+                                                        background: 'black', 
+                                                        color: '#ff4d4d', 
+                                                        border: '2px solid #ff4d4d', 
+                                                        borderRadius: '6px', 
+                                                        fontWeight: 'bold', 
+                                                        cursor: 'pointer', 
+                                                        display: 'flex', 
+                                                        alignItems: 'center', 
+                                                        justifyContent: 'center', 
+                                                        gap: '8px',
+                                                        boxShadow: '0 4px 10px rgba(255, 77, 77, 0.3)'
+                                                    }}
+                                                >
+                                                    🚨 SEND EMERGENCY SOS
+                                                </button>
+                                            </div>
                                         )}
                                     </div>
                                 )}
@@ -215,6 +307,12 @@ const TouristTrips = () => {
                     </div>
                 )}
             </div>
+
+            <ReviewModal 
+                isOpen={isModalOpen} 
+                onClose={() => setIsModalOpen(false)} 
+                onSubmit={submitReview} 
+            />
         </div>
     );
 };
