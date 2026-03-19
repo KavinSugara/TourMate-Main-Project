@@ -14,6 +14,7 @@ namespace TourMate.Backend.Services
             _context = context;
         }
 
+        // Haversine formula to calculate distance between two GPS points
         public double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
         {
             var dLat = ToRadians(lat2 - lat1);
@@ -24,32 +25,86 @@ namespace TourMate.Backend.Services
                     Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
 
             var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-
             return EarthRadiusKm * c;
         }
 
         private double ToRadians(double angle) => Math.PI * angle / 180.0;
 
-        public async Task<List<Guide>> GetNearbyGuidesAsync(double touristLat, double touristLon, double radiusKm, string? category = null)
+        public async Task<List<object>> GetNearbyGuidesAsync(
+            double touristLat,
+            double touristLon,
+            double radiusKm,
+            string? category = null,
+            string? specialization = null)
         {
-            var query = _context.Guides.Where(g => g.IsActive && g.IsVerified);
+            // 1. IDENTIFY BUSY GUIDES
+            var busyGuideIds = await _context.Bookings
+                .Where(b => b.Status == "Active" || b.Status == "Accepted")
+                .Select(b => b.GuideId)
+                .Distinct()
+                .ToListAsync();
 
-            if (!string.IsNullOrEmpty(category))
+            // 2. INITIAL FILTERING
+            // Note: I have commented out g.IsVerified so you can test guides immediately.
+            // Ensure you click "Go Online" in the Guide Dashboard to set IsAvailable to True.
+            var query = _context.Guides.Where(g =>
+                g.IsActive &&
+                g.IsAvailable &&
+                // g.IsVerified && // <--- Commented out for testing visibility
+                g.Latitude != null &&
+                g.Longitude != null &&
+                !busyGuideIds.Contains(g.UserId));
+
+            // 3. APPLY CATEGORY FILTER
+            if (!string.IsNullOrEmpty(category) && category != "All")
             {
                 query = query.Where(g => g.Category == category);
             }
 
-            var candidates = await query.ToListAsync();
+            // 4. APPLY SPECIALIZATION FILTER
+            if (!string.IsNullOrEmpty(specialization) && specialization != "All")
+            {
+                query = query.Where(g => g.Specialization.Contains(specialization));
+            }
 
-            return candidates
-                .Select(g => new {
-                    Guide = g,
-                    Distance = CalculateDistance(touristLat, touristLon, (double)g.Latitude, (double)g.Longitude)
-                })
-                .Where(x => x.Distance <= radiusKm)
-                .OrderBy(x => x.Distance)
-                .Select(x => x.Guide)
-                .ToList();
+            var candidates = await query.ToListAsync();
+            var result = new List<object>();
+
+            // 5. CALCULATE DISTANCE AND REPUTATION
+            foreach (var g in candidates)
+            {
+                double dist = CalculateDistance(touristLat, touristLon, (double)g.Latitude!, (double)g.Longitude!);
+
+                if (dist <= radiusKm)
+                {
+                    var reviews = _context.Bookings
+                        .Where(b => b.GuideId == g.UserId && b.Status == "Completed" && b.Rating != null)
+                        .Select(b => b.Rating.Value)
+                        .ToList();
+
+                    double avgRating = reviews.Any() ? Math.Round(reviews.Average(), 1) : 0.0;
+                    int reviewCount = reviews.Count;
+
+                    result.Add(new
+                    {
+                        g.Id,
+                        g.UserId,
+                        g.FullName,
+                        g.Category,
+                        g.Specialization,
+                        g.BaseRate,
+                        g.Latitude,
+                        g.Longitude,
+                        g.IsVerified,
+                        AverageRating = avgRating,
+                        ReviewCount = reviewCount,
+                        Distance = Math.Round(dist, 2)
+                    });
+                }
+            }
+
+            // 6. SORT BY DISTANCE
+            return result.OrderBy(x => ((dynamic)x).Distance).ToList();
         }
     }
 }

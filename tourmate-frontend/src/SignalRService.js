@@ -1,6 +1,5 @@
 import * as signalR from "@microsoft/signalr";
-
-const connection = new signalR.HubConnectionBuilder()
+export const connection = new signalR.HubConnectionBuilder()
     .withUrl("http://localhost:5211/tourmatehub", {
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets
@@ -8,7 +7,6 @@ const connection = new signalR.HubConnectionBuilder()
     .withAutomaticReconnect()
     .configureLogging(signalR.LogLevel.Information) 
     .build();
-
 
 export const startConnection = async (onMessageReceived) => {
     if (connection.state === signalR.HubConnectionState.Disconnected) {
@@ -19,7 +17,7 @@ export const startConnection = async (onMessageReceived) => {
 
             connection.off("ReceiveBookingRequest");
 
-            connection.on("ReceiveBookingRequests", (data) => {
+            connection.on("ReceiveBookingRequest", (data) => {
                 console.log("🔔 SignalR Service: Raw data received", data);
                 onMessageReceived(data); 
             });

@@ -12,9 +12,9 @@ namespace TourMate.Backend.Models
         [StringLength(100)]
         public string FullName { get; set; } = string.Empty;
 
-        public string? LicenseNumber { get; set; } // SLTDA ID (e.g., N-7721)
+        public string? LicenseNumber { get; set; }
 
-        public string? Category { get; set; } // National, Chauffeur, or Site
+        public string? Category { get; set; } 
 
         public double? Latitude { get; set; }
 
@@ -26,13 +26,17 @@ namespace TourMate.Backend.Models
 
         public bool IsAvailable { get; set; } = true;
 
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal? BaseRate { get; set; }
         public bool IsVerified { get; set; } = false;
 
-        // Link to the User account
+        public string LicenseStatus { get; set; } = "Pending";
+
         [Required]
         public int UserId { get; set; }
 
         [ForeignKey("UserId")]
         public virtual User? User { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }

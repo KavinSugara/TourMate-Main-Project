@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using TourMate.Backend.Hubs;
 using TourMate.Backend.Models;
 using TourMate.Backend.Services;
-using TourMate.Backend.Data; 
+using TourMate.Backend.Data;
 
 namespace TourMate.Backend.Controllers
 {
@@ -31,11 +31,13 @@ namespace TourMate.Backend.Controllers
             [FromQuery] double lat,
             [FromQuery] double lon,
             [FromQuery] double radiusKm = 20.0,
-            [FromQuery] string? category = null)
+            [FromQuery] string? category = null,
+            [FromQuery] string? specialization = null) // ADDED: Specialization filter
         {
             try
             {
-                var guides = await _matchingService.GetNearbyGuidesAsync(lat, lon, radiusKm, category);
+                // Updated service call to handle the specialization parameter
+                var guides = await _matchingService.GetNearbyGuidesAsync(lat, lon, radiusKm, category, specialization);
 
                 if (guides == null || !guides.Any())
                     return NotFound(new { message = "No verified guides matching your criteria were found." });
@@ -49,27 +51,25 @@ namespace TourMate.Backend.Controllers
         }
 
         [HttpPost("request/{guideId}")]
-        public async Task<IActionResult> RequestGuide(int guideId, [FromBody] string touristName)
+        public async Task<IActionResult> RequestGuide(int guideId, [FromBody] Booking bookingRequest)
         {
-            var guide = await _context.Guides.FindAsync(guideId);
+            var guide = await _context.Guides.FirstOrDefaultAsync(g => g.Id == guideId || g.UserId == guideId);
+            if (guide == null) return NotFound("Guide not found.");
 
-            if (guide == null)
-            {
-                return NotFound("Guide not found in database.");
-            }
-
-       
             var notification = new
             {
-                guideId = guide.Id,
-                fullName = guide.FullName,
-                touristName = touristName,
-                message = $"New booking request for {guide.FullName}!"
+                bookingId = bookingRequest.BookingId,
+                guideId = guide.UserId,
+                touristName = bookingRequest.TouristName,
+                touristMessage = bookingRequest.TouristMessage,
+                estimatedStartTime = bookingRequest.EstimatedStartTime,
+                duration = bookingRequest.Duration,
+                groupSize = bookingRequest.GroupSize,
+                bookingDate = DateTime.Now
             };
 
             await _hubContext.Clients.All.SendAsync("ReceiveBookingRequest", notification);
-
-            return Ok(new { Message = "Notification sent successfully", Data = notification });
+            return Ok(new { Message = "Notification sent successfully" });
         }
     }
 }
